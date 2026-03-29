@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royal Games | Premium Slot Portal</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --gold: #F5C542;
+      --red: #CE1126;
+      --green: #009E49;
+      --dark: #060606;
+      --card: rgba(20,20,20,0.92);
+      --border: rgba(255,255,255,0.08);
+      --muted: rgba(255,255,255,0.6);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top left, rgba(206,17,38,0.08), transparent 30%),
+                  radial-gradient(circle at bottom right, rgba(0,158,73,0.08), transparent 30%),
+                  var(--dark);
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 1280px;
+      margin: auto;
+      padding: 30px 20px 80px;
+    }
+
+    .top-strip {
+      display: flex;
+      height: 5px;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .top-strip div:nth-child(1){background: var(--green); flex:1;}
+    .top-strip div:nth-child(2){background: var(--gold); flex:1;}
+    .top-strip div:nth-child(3){background: var(--red); flex:1;}
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 30px;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .hero-card,
+    .side-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      padding: 32px;
+      backdrop-filter: blur(18px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(0,158,73,0.12);
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 22px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100%{opacity:1; transform:scale(1)}
+      50%{opacity:0.4; transform:scale(1.5)}
+    }
+
+    h1 {
+      font-size: clamp(48px, 8vw, 90px);
+      line-height: 0.9;
+      font-weight: 900;
+      letter-spacing: -4px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      background: linear-gradient(to bottom, #fff, #777);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
+
+    .desc {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+      max-width: 540px;
+      margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      text-decoration: none;
+      border-radius: 18px;
+      padding: 18px 28px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 13px;
+      transition: .3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-main {
+      background: white;
+      color: black;
+    }
+
+    .btn-main:hover {
+      transform: translateY(-4px);
+      background: #ededed;
+    }
+
+    .btn-admin {
+      background: var(--red);
+      color: white;
+    }
+
+    .btn-admin:hover {
+      transform: translateY(-4px);
+      background: #b60f22;
+    }
+
+    .live-box {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .live-number {
+      font-size: 52px;
+      font-weight: 900;
+      color: var(--gold);
+    }
+
+    .live-label {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 11px;
+    }
+
+    .avatars {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .avatar {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .avatar-circle {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 18px;
+      color: white;
+      background: linear-gradient(135deg, var(--red), var(--gold));
+    }
+
+    .avatar-name {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .avatar-win {
+      font-size: 11px;
+      color: var(--gold);
+      margin-top: 4px;
+    }
+
+    .section-title {
+      margin: 10px 0 24px;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+    }
+
+    .game-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      overflow: hidden;
+      transition: .3s ease;
+      position: relative;
+    }
+
+    .game-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(245,197,66,0.4);
+    }
+
+    .game-image {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+      font-weight: 900;
+      background: linear-gradient(135deg, rgba(206,17,38,0.6), rgba(0,158,73,0.5));
+    }
+
+    .game-content {
+      padding: 22px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(245,197,66,0.12);
+      color: var(--gold);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+
+    .game-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .game-desc {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .game-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .rtp {
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .play-btn {
+      background: white;
+      color: black;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 18px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .support {
+      margin-top: 50px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .support a {
+      flex: 1;
+      min-width: 180px;
+      text-align: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: white;
+      text-decoration: none;
+      padding: 18px;
+      border-radius: 18px;
+      font-weight: 700;
+    }
+
+    .support a:hover {
+      border-color: var(--gold);
+    }
+
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      color: rgba(255,255,255,0.4);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    @media(max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .avatars {
+        grid-template-columns: repeat(3,1fr);
+      }
+    }
+
+    @media(max-width: 560px) {
+      .wrapper {
+        padding: 20px 14px 60px;
+      }
+
+      .hero-card,
+      .side-panel {
+        padding: 22px;
+        border-radius: 24px;
+      }
+
+      .avatars {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+
+    <div class="top-strip">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-card">
+        <div class="status">
+          <span class="dot"></span>
+          Server Online
+        </div>
+
+        <h1>Royal<br>Games</h1>
+        <div class="subtitle">Ethiopia Premium Slot Experience</div>
+
+        <p class="desc">
+          Play the latest slot-style games with fast loading, live players, and secure access.
+          Optimized for mobile, desktop, and GitHub Pages publishing.
+        </p>
+
+        <div class="hero-buttons">
+          <a class="btn btn-main" href="https://ais-dev-nfqsqmp5bdksmifr3sw6kd-657604829260.europe-west2.run.app">
+            Enter Website
+          </a>
+
+          <a class="btn btn-admin" href="https://ais-dev-nfqsqmp5bdksmifr3sw6kd-657604829260.europe-west2.run.app/royalgames/admin">
+            Admin Dashboard
+          </a>
+        </div>
+      </div>
+
+      <div class="side-panel">
+        <div class="live-box">
+          <div class="live-number" id="players">1242</div>
+          <div class="live-label">Live Players Online</div>
+        </div>
+
+        <div class="avatars">
+          <div class="avatar">
+            <div class="avatar-circle">A</div>
+            <div class="avatar-name">Abdi</div>
+            <div class="avatar-win">+ 2,450 ETB</div>
+          </div>
+
+          <div class="avatar">
+            <div class="avatar-circle">S</div>
+            <div class="avatar-name">Sami</div>
+            <div class="avatar-win">+ 5,100 ETB</div>
+          </div>
+
+          <div class="avatar">
+            <div class="avatar-circle">L</div>
+            <div class="avatar-name">Liya</div>
+            <div class="avatar-win">+ 1,980 ETB</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="section-title">Featured Slot Games</h2>
+
+    <section class="games-grid">
+
+      <div class="game-card">
+        <div class="game-image">🍒</div>
+        <div class="game-content">
+          <div class="badge">Most Played</div>
+          <div class="game-title">Fruit Fortune</div>
+          <div class="game-desc">Classic fruit reels with high-speed spins and bonus multipliers.</div>
+          <div class="game-footer">
+            <span class="rtp">RTP 96.5%</span>
+            <button class="play-btn">Play</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="game-image">👑</div>
+        <div class="game-content">
+          <div class="badge">Royal Bonus</div>
+          <div class="game-title">Golden Crown</div>
+          <div class="game-desc">Premium slot with crown jackpots, free spins, and gold rewards.</div>
+          <div class="game-footer">
+            <span class="rtp">RTP 97.1%</span>
+            <button class="play-btn">Play</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="game-image">💎</div>
+        <div class="game-content">
+          <div class="badge">High Win</div>
+          <div class="game-title">Diamond Rush</div>
+          <div class="game-desc">Spin for diamonds and unlock progressive jackpot rewards.</div>
+          <div class="game-footer">
+            <span class="rtp">RTP 98.0%</span>
+            <button class="play-btn">Play</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="game-image">🔥</div>
+        <div class="game-content">
+          <div class="badge">Trending</div>
+          <div class="game-title">Hot Hot Fire</div>
+          <div class="game-desc">Fast-action slot with burning wilds and instant cash rewards.</div>
+          <div class="game-footer">
+            <span class="rtp">RTP 95.9%</span>
+            <button class="play-btn">Play</button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="support">
+      <a href="https://t.me/royalbettingss" target="_blank">Telegram Support</a>
+      <a href="https://wa.me/251900000000" target="_blank">WhatsApp Support</a>
+    </div>
+
+    <footer>
+      © 2026 Royal Games • Built for GitHub Pages
+    </footer>
+
+  </div>
+
+  <script>
+    const playerCounter = document.getElementById('players');
+
+    setInterval(() => {
+      let current = parseInt(playerCounter.innerText);
+      current += Math.floor(Math.random() * 7) - 2;
+      if (current < 1000) current = 1000;
+      playerCounter.innerText = current.toLocaleString();
+    }, 2500);
+
+    document.querySelectorAll('.play-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        window.location.href = 'https://ais-dev-nfqsqmp5bdksmifr3sw6kd-657604829260.europe-west2.run.app';
+      });
+    });
+  </script>
+
+</body>
+  </html>
